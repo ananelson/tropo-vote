@@ -1,0 +1,26 @@
+﻿$def with (candidates)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <meta http-equiv="Content-type" content="text/html" />
+        <title>Women 2.0 Pitch Competition</title>
+        <link href="/css/zp-compressed.css"
+              type="text/css"rel="stylesheet" />
+    </head>
+    <body>
+        <div class="zp-wrapper">
+            <div class="zp-70 content">
+                <div class="padding">
+                    <h1>Vote for Most Disruptive Startup</h1>
+                    <h2>Finalists</h2>
+                    <ul>
+                        $for c in candidates:
+                          <li>$c.name - code is $c.vote_code, call or send SMS with "v $c.vote_code" ($c.cached_votes)</li>
+                      </ul>
+                    <h2>Vote - (415) 889-8567
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
