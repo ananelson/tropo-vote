@@ -9,7 +9,6 @@ os.chdir(abspath)
 
 from tropo import Tropo, Choices, Result
 import json
-import random
 import re
 import web
 
@@ -53,7 +52,7 @@ class BaseTropo(object):
             return None
 
 class MenuTropo(BaseTropo):
-    URL_ROOT = "base" # TODO derive from class name?
+    URL_ROOT = "base"
 
     def url_root(self):
         return self.URL_ROOT
@@ -165,9 +164,11 @@ class StartTropo(BaseTropo):
                 vote_code = m.groups()[1]
                 candidate = models.find_candidate_by_code(vote_code)
                 if candidate:
-                    print "TODO actually vote..."
+                    models.record_vote(caller_id, candidate['id'])
                     t = Tropo()
-                    t.message("You voted for %s" % m.groups()[1], to=caller_id, channel='TEXT')
+                    t.message(
+                            "You have voted for %s as most disruptive startup. Thanks for voting! Tropo <3s you!" % candidate['name'],
+                            to=caller_id, channel='TEXT')
                     return t.RenderJson()
                 else:
                     return self.do_help_text("Sorry, there's no candidate %s. " % vote_code)
@@ -177,7 +178,7 @@ class StartTropo(BaseTropo):
             return self.do_help_text("You need to have caller ID enabled to vote.")
         else:
             t = Tropo()
-            t.message("It looks like you have voted already.", to=caller_id, channel='TEXT')
+            t.message("Oops, it looks like you have voted already.", to=caller_id, channel='TEXT')
             return t.RenderJson()
 
     def do_help_text(self, msg=""):
